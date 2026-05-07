@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Rendez Vous Lounge</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #c9302c;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --bg-light: #f8f9fa;
+            --text-dark: #2c3e50;
+            --transition: 0.35s ease;
+            --shadow-light: 0 10px 25px rgba(0,0,0,0.08);
+            --shadow-medium: 0 15px 40px rgba(0,0,0,0.12);
+            --shadow-heavy: 0 20px 50px rgba(0,0,0,0.16);
+            --gradient-primary: linear-gradient(135deg, #c9302c, #e74c3c);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1200px, 100%);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 1.6rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.96);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-light);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+        }
+
+        .nav-logo h1 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .nav-logo-img {
+            height: 40px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            padding: 0.8rem 0.4rem;
+        }
+
+        .nav-link:hover,
+        .reservation-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .reservation-btn {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            padding: 0.8rem 1rem;
+        }
+
+        .hero-logo-img {
+            height: 40px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .menu-hero {
+
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .menu-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        }
+        
+        .menu-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .full-menu-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .menu-category {
+            margin-bottom: 4rem;
+        }
+        
+        .menu-category h2 {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .menu-category h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-primary);
+        }
+        
+        .menu-category-description {
+            text-align: center;
+            color: #666;
+            margin: 2rem auto;
+            max-width: 600px;
+            font-style: italic;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .menu-card {
+            background: var(--bg-light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+        
+        .menu-card-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .menu-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .menu-card:hover .menu-card-image img {
+            transform: scale(1.1);
+        }
+        
+        .menu-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .menu-card-content {
+            padding: 1.5rem;
+        }
+        
+        .menu-card-title {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .menu-card-description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .menu-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .add-to-cart {
+            display: inline-flex;
+            margin-top: 1rem;
+            width: 100%;
+            justify-content: center;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .add-to-cart:hover {
+            background: #1f2a38;
+            transform: translateY(-2px);
+        }
+        
+        .cart-panel {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+        }
+        
+        .cart-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .cart-details {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-medium);
+            padding: 1.5rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-name {
+            font-weight: 500;
+        }
+        
+        .cart-item-quantity {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .cart-total {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 1rem;
+            text-align: right;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .menu-card-price {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .menu-card-allergens {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .allergen-tag {
+            background: rgba(201,48,44,0.1);
+            color: var(--primary-color);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        
+        .chef-specials {
+            background: linear-gradient(135deg, rgba(201,48,44,0.05) 0%, rgba(44,62,80,0.05) 100%);
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+        
+        .specials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .special-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition);
+        }
+        
+        .special-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy);
+        }
+        
+        .special-item-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .special-item h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .special-item p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .special-item-price {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .menu-download {
+            background: var(--bg-light);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .download-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .download-content h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .download-content p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .specials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .download-buttons .btn {
+                width: 250px;
+            }
+        }
+        
+        .menu-rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .menu-rating .stars {
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .menu-rating .stars i {
+            color: #ffd700;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .menu-rating .rating-text {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 4rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            margin-top: 0;
+            color: var(--secondary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--text-dark);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 220px;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .newsletter-form button {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1><a href="index.html" class="about-nav-link"><img src="logo.png" alt="Rendez Vous Lounge" class="nav-logo-img">Rendez Vous Lounge</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="menu.html" class="nav-link">Menu</a></li>
+                <li><a href="bakery.html" class="nav-link">Top Loaf Bakery</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="index.html#reservation" class="nav-link reservation-btn">Reserve Table</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Hero -->
+    <section class="menu-hero">
+        <div class="container">
+            <h1>Our Menu</h1>
+            <div class="menu-rating">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <span class="rating-text">4.5 Stars - Google Reviews</span>
+            </div>
+            <p>Discover our exquisite selection of cuisine and drinks</p>
+            <div class="cart-panel">
+                <div class="cart-summary">
+                    <span><strong>Cart:</strong> <span id="cart-count">0</span> items</span>
+                    <button id="cart-toggle" class="btn btn-secondary">View Cart</button>
+                </div>
+                <div id="cart-details" class="cart-details hidden">
+                    <h3>Your Cart</h3>
+                    <div id="cart-items"></div>
+                    <div class="cart-total">Total: RWF <span id="cart-total">0</span></div>
+                    <button id="checkout-btn" class="btn btn-primary">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Menu Section -->
+    <section class="full-menu-section">
+        <div class="container">
+            <!-- Appetizers -->
+            <div class="menu-category">
+                <h2>Appetizers</h2>
+                <p class="menu-category-description">Start your culinary journey with our carefully crafted appetizers</p>
+                
+                <div class="menu-grid">
+                    <div class="menu-card">
+                        <div class="menu-card-image">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Bruschetta">
+                            <span class="menu-badge">Popular</span>
+                        </div>
+                        <div class="menu-card-content">
+                            <h3 class="menu-card-title">Bruschetta Classica</h3>
+                            <p class="menu-card-description">Toasted artisan bread topped with fresh Roma tomatoes, basil, garlic, and mozzarella cheese</p>
+                            <div class="menu-card-footer">
+                                <span class="menu-card-price">RWF 15,600</span>
+                                <div class="menu-card-allergens">
+                                    <span class="allergen-tag">GF</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary add-to-cart" data-name="Bruschetta Classica" data-price="15600">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="menu-card-image">
+                            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Carpaccio">
+                        </div>
+                        <div class="menu-card-content">
+                            <h3 class="menu-card-title">Carpaccio di Manzo</h3>
+                            <p class="menu-card-description">Thinly sliced raw beef tenderloin with arugula, shaved parmesan, and truffle oil</p>
+                            <div class="menu-card-footer">
+                                <span class="menu-card-price">RWF 19,500</span>
+                                <div class="menu-card-allergens">
+                                    <span class="allergen-tag">DF</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary add-to-cart" data-name="Carpaccio di Manzo" data-price="19500">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="menu-card-image">
+                            <img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Calamari">
+                        </div>
+                        <div class="menu-card-content">
+                            <h3 class="menu-card-title">Calamari Fritti</h3>
+                            <p class="menu-card-description">Crispy fried squid rings served with zesty marinara sauce and lemon wedges</p>
+                            <div class="menu-card-footer">
+                                <span class="menu-card-price">RWF 18,200</span>
+                                <div class="menu-card-allergens">
+                                    <span class="allergen-tag">GF</span>
+                                    <span class="allergen-tag">SF</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary add-to-cart" data-name="Calamari Fritti" data-price="18200">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Courses -->
+            <div class="menu-category">
+                <h2>Main Courses</h2>
+                <p class="menu-category-description">Our signature dishes prepared with the finest ingredients</p>
+                
+                <div class="menu-grid">
+                    <div class="menu-card">
+                        <div class="menu-card-image">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Osso Buco">
+                            <span class="menu-badge">Chef's Special</span>
+                        </div>
+                        <div class="menu-card-content">
+                            <h3 class="menu-card-title">Osso Buco</h3>
+                            <p class="menu-card-description">Braised veal shanks in white wine and vegetables, served with saffron risotto</p>
+                            <div class="menu-card-footer">
+                                <span class="menu-card-price">RWF 41,600</span>
+                                <div class="menu-card-allergens">
+                                    <span class="allergen-tag">GF</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary add-to-cart" data-name="Osso Buco" data-price="41600">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="menu-card-image">
+                            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Filetto di Manzo">
+                        </div>
+                        <div class="menu-card-content">
+                            <h3 class="menu-card-title">Filetto di Manzo</h3>
+                            <p class="menu-card-description">Grilled beef tenderloin with truffle sauce, served with seasonal vegetables</p>
+                            <div class="menu-card-footer">
+                                <span class="menu-card-price">RWF 58,500</span>
+                                <div class="menu-card-allergens">
+                                    <span class="allergen-tag">GF</span>
+                                    <span class="allergen-tag">DF</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary add-to-cart" data-name="Filetto di Manzo" data-price="58500">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="menu-card-image">
+                            <img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Risotto">
+                        </div>
+                        <div class="menu-card-content">
+                            <h3 class="menu-card-title">Risotto ai Frutti di Mare</h3>
+                            <p class="menu-card-description">Creamy arborio rice with mixed seafood, white wine, and fresh herbs</p>
+                            <div class="menu-card-footer">
+                                <span class="menu-card-price">RWF 36,400</span>
+                                <div class="menu-card-allergens">
+                                    <span class="allergen-tag">SF</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary add-to-cart" data-name="Risotto ai Frutti di Mare" data-price="36400">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desserts -->
+            <div class="menu-category">
+                <h2>Desserts</h2>
+                <p class="menu-category-description">Sweet endings to your perfect meal</p>
+                
+                <div class="menu-grid">
+                    <div class="menu-card">
+                        <div class="menu-card-image">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Tiramisu">
+                        </div>
+                        <div class="menu-card-content">
+                            <h3 class="menu-card-title">Tiramisù</h3>
+                            <p class="menu-card-description">Classic Italian dessert with coffee-soaked ladyfingers and mascarpone cream</p>
+                            <div class="menu-card-footer">
+                                <span class="menu-card-price">RWF 10,400</span>
+                                <div class="menu-card-allergens">
+                                    <span class="allergen-tag">V</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary add-to-cart" data-name="Tiramisù" data-price="10400">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="menu-card-image">
+                            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Panna Cotta">
+                        </div>
+                        <div class="menu-card-content">
+                            <h3 class="menu-card-title">Panna Cotta</h3>
+                            <p class="menu-card-description">Silky vanilla custard topped with mixed berry compote</p>
+                            <div class="menu-card-footer">
+                                <span class="menu-card-price">RWF 9,100</span>
+                                <div class="menu-card-allergens">
+                                    <span class="allergen-tag">GF</span>
+                                    <span class="allergen-tag">V</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary add-to-cart" data-name="Panna Cotta" data-price="9100">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="menu-card-image">
+                            <img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Cannoli">
+                        </div>
+                        <div class="menu-card-content">
+                            <h3 class="menu-card-title">Cannoli Siciliani</h3>
+                            <p class="menu-card-description">Traditional Sicilian pastry shells filled with sweet ricotta cream</p>
+                            <div class="menu-card-footer">
+                                <span class="menu-card-price">RWF 11,700</span>
+                                <div class="menu-card-allergens">
+                                    <span class="allergen-tag">V</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary add-to-cart" data-name="Cannoli Siciliani" data-price="11700">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chef's Specials -->
+    <section class="chef-specials">
+        <div class="container">
+            <h2 class="section-title">Chef's Specials</h2>
+            <div class="specials-grid">
+                <div class="special-item">
+                    <div class="special-item-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Tasting Menu</h3>
+                    <p>A 7-course journey through our chef's signature creations, perfectly paired with premium wines</p>
+                    <div class="special-item-price">RWF 156,000</div>
+                </div>
+                
+                <div class="special-item">
+                    <div class="special-item-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Vegetarian Delight</h3>
+                    <p>A carefully curated 5-course vegetarian menu showcasing seasonal ingredients and innovative techniques</p>
+                    <div class="special-item-price">RWF 110,500</div>
+                </div>
+                
+                <div class="special-item">
+                    <div class="special-item-icon">
+                        <i class="fas fa-wine-glass"></i>
+                    </div>
+                    <h3>Wine Pairing Experience</h3>
+                    <p>Expertly selected wines to complement each course of your meal, guided by our sommelier</p>
+                    <div class="special-item-price">RWF 84,500</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Download -->
+    <section class="menu-download">
+        <div class="container">
+            <div class="download-content">
+                <h2>Take Our Menu Home</h2>
+                <p>Download our complete menu to browse at your convenience or share with friends and family</p>
+                <div class="download-buttons">
+                    <a href="Rendezvous Food Menu.pdf" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-download"></i> Download PDF Menu
+                    </a>
+                    <a href="Rendezvous Food Menu.pdf" class="btn btn-secondary" target="_blank">
+                        <i class="fas fa-print"></i> Print Menu
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Rendez Vous Lounge</h3>
+                    <p>Experience premium dining and entertainment in the heart of Kigali, Rwanda.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/rendez_vouslounge/" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Opening Hours</h4>
+                    <ul>
+                        <li>Daily: 7:00 AM - 2:00 AM</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to receive special offers and updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Rendez Vous Lounge. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        const cartToggle = document.getElementById('cart-toggle');
+        const cartDetails = document.getElementById('cart-details');
+        const cartCount = document.getElementById('cart-count');
+        const cartTotal = document.getElementById('cart-total');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const cart = [];
+
+        function formatPrice(value) {
+            return value.toLocaleString('en-US');
+        }
+
+        function updateCart() {
+            const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            cartCount.textContent = itemCount;
+            cartTotal.textContent = formatPrice(total);
+
+            cartItemsContainer.innerHTML = cart.length ? cart.map(item => `
+                <div class="cart-item">
+                    <div>
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-quantity">Qty: ${item.quantity}</div>
+                    </div>
+                    <div>RWF ${formatPrice(item.price * item.quantity)}</div>
+                </div>
+            `).join('') : '<p>Your cart is empty.</p>';
+        }
+
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            updateCart();
+            if (cartDetails.classList.contains('hidden')) {
+                cartDetails.classList.remove('hidden');
+            }
+        }
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const name = button.dataset.name;
+                const price = parseInt(button.dataset.price, 10);
+                addToCart(name, price);
+            });
+        });
+
+        cartToggle.addEventListener('click', () => {
+            cartDetails.classList.toggle('hidden');
+        });
+
+        checkoutBtn.addEventListener('click', () => {
+            alert('Your cart is ready. Please contact us to complete your order.');
+        });
+
+        updateCart();
+    </script>
+</body>
+</html>

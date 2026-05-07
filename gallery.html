@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Rendez Vous Lounge</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .gallery-hero {
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .gallery-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        }
+        
+        .gallery-hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .gallery-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+            height: 300px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(201,48,44,0.9) 0%, rgba(44,62,80,0.9) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay h3 {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .gallery-overlay p {
+            color: var(--text-light);
+            text-align: center;
+            padding: 0 1rem;
+            transform: translateY(20px);
+            transition: var(--transition);
+            transition-delay: 0.1s;
+        }
+        
+        .gallery-item:hover .gallery-overlay h3,
+        .gallery-item:hover .gallery-overlay p {
+            transform: translateY(0);
+        }
+        
+        .gallery-overlay .icon {
+            font-size: 2rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            transform: translateY(20px);
+            transition: var(--transition);
+            transition-delay: 0.2s;
+        }
+        
+        .gallery-item:hover .gallery-overlay .icon {
+            transform: translateY(0);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .virtual-tour {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+        
+        .tour-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .tour-text h2 {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tour-text p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tour-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tour-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+        
+        .tour-feature i {
+            color: var(--primary-color);
+        }
+        
+        .tour-video {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy);
+            height: 400px;
+        }
+        
+        .tour-video iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .tour-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .tour-features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .gallery-rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .gallery-rating .stars {
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .gallery-rating .stars i {
+            color: #ffd700;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .gallery-rating .rating-text {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1><a href="index.html" class="about-nav-link"><img src="logo.png" alt="Rendez Vous Lounge" class="nav-logo-img">Rendez Vous Lounge</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="menu.html" class="nav-link">Menu</a></li>
+                <li><a href="bakery.html" class="nav-link">Top Loaf Bakery</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="index.html#reservation" class="nav-link reservation-btn">Reserve Table</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Gallery Hero -->
+    <section class="gallery-hero">
+        <div class="container">
+            <h1>Gallery</h1>
+            <div class="gallery-rating">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <span class="rating-text">4.5 Stars - Google Reviews</span>
+            </div>
+            <p>Experience the beauty and elegance of Rendez Vous Lounge</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="food">Food</button>
+                <button class="filter-btn" data-filter="interior">Interior</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+                <button class="filter-btn" data-filter="staff">Staff</button>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Food Items -->
+                <div class="gallery-item" data-category="food">
+                    <img src="food1.png" alt="Signature Dish">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-utensils icon"></i>
+                        <h3>Signature Dishes</h3>
+                        <p>Our chef's special creations</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="food">
+                    <img src="food2.png" alt="Gourmet Meal">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-drumstick-bite icon"></i>
+                        <h3>Gourmet Cuisine</h3>
+                        <p>Premium dishes with local ingredients</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="food">
+                    <img src="food1.png" alt="Desserts">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-ice-cream icon"></i>
+                        <h3>Desserts</h3>
+                        <p>Sweet endings to perfect meals</p>
+                    </div>
+                </div>
+                
+                <!-- Interior Items -->
+                <div class="gallery-item" data-category="interior">
+                    <img src="seats1.jpg" alt="Main Seating Area">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-chair icon"></i>
+                        <h3>Main Lounge</h3>
+                        <p>Comfortable seating for dining and entertainment</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="interior">
+                    <img src="seats2.jpg" alt="VIP Seating">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-home icon"></i>
+                        <h3>VIP Lounge</h3>
+                        <p>Exclusive area for premium experiences</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="interior">
+                    <img src="seats2.jpg" alt="Bar Area">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-wine-glass icon"></i>
+                        <h3>Bar Area</h3>
+                        <p>Extensive drink selection and premium service</p>
+                    </div>
+                </div>
+                
+                <!-- Events Items -->
+                <div class="gallery-item" data-category="events">
+                    <img src="prom1.jpg" alt="Promotional Event">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-birthday-cake icon"></i>
+                        <h3>Special Events</h3>
+                        <p>Promotional nights and celebrations</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="events">
+                    <img src="kareoki.jpg" alt="Karaoke Night">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-music icon"></i>
+                        <h3>Karaoke Nights</h3>
+                        <p>Fun entertainment and live performances</p>
+                    </div>
+                </div>
+                
+                <!-- VIP Areas -->
+                <div class="gallery-item" data-category="events">
+                    <img src="vip1.jpg" alt="VIP Area 1">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-star icon"></i>
+                        <h3>VIP Section 1</h3>
+                        <p>Exclusive premium seating area</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="events">
+                    <img src="vip2.jpg" alt="VIP Area 2">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-star icon"></i>
+                        <h3>VIP Section 2</h3>
+                        <p>Luxury entertainment space</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="events">
+                    <img src="vip3.jpg" alt="VIP Area 3">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-star icon"></i>
+                        <h3>VIP Section 3</h3>
+                        <p>Private celebration area</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtual Tour Section -->
+    <section class="virtual-tour">
+        <div class="container">
+            <div class="tour-content">
+                <div class="tour-text">
+                    <h2>Virtual Tour</h2>
+                    <p>Take a virtual walkthrough of Bella Vista and experience our elegant ambiance from the comfort of your home. Explore our beautifully designed spaces, from the intimate dining areas to our sophisticated bar lounge.</p>
+                    
+                    <div class="tour-features">
+                        <div class="tour-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>360° panoramic views</span>
+                        </div>
+                        <div class="tour-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Interactive navigation</span>
+                        </div>
+                        <div class="tour-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>HD quality video</span>
+                        </div>
+                        <div class="tour-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Mobile friendly</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Start Virtual Tour
+                    </a>
+                </div>
+                <div class="tour-video">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Virtual Tour" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Rendez Vous Lounge</h3>
+                    <p>Experience premium dining and entertainment in the heart of Kigali, Rwanda.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/rendez_vouslounge/" target="_blank" rel="noopener" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Opening Hours</h4>
+                    <ul>
+                        <li>Daily: 7:00 AM - 2:00 AM</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to receive special offers and updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Rendez Vous Lounge. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Gallery Filter Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.classList.remove('hidden');
+                            // Add animation
+                            item.style.animation = 'fadeIn 0.5s ease';
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
