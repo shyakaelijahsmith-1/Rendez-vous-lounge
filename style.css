@@ -126,6 +126,9 @@ h4 { font-size: 1.5rem; }
     list-style: none;
     gap: 2rem;
     align-items: center;
+    color: #a02622;
+    text-decoration-color: #c9302c;
+    transition: var(--transition);
 }
 
 .nav-link {
@@ -154,6 +157,7 @@ h4 { font-size: 1.5rem; }
 
 .nav-link:hover {
     color: var(--primary-color);
+     transform: translateY(-2px);
 }
 
 .reservation-btn {
