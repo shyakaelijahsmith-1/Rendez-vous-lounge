@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Rendez Vous Lounge</title>
     <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -82,64 +83,6 @@
             opacity: 0.95;
         }
 
-        .navbar {
-            position: sticky;
-            top: 0;
-            width: 100%;
-            background: rgba(255,255,255,0.96);
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-light);
-            z-index: 1000;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 20px;
-        }
-
-        .nav-logo h1 {
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .nav-logo-img {
-            height: 40px;
-            display: inline-block;
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-link {
-            color: var(--text-dark);
-            padding: 0.8rem 0.4rem;
-        }
-
-        .nav-link:hover,
-        .reservation-btn:hover {
-            color: var(--primary-color);
-        }
-
-        .reservation-btn {
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50px;
-            padding: 0.8rem 1rem;
-        }
-
         .hero-logo-img {
             height: 40px;
             vertical-align: middle;
@@ -151,7 +94,7 @@
             height: 60vh;
             min-height: 400px;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover;
+                        url('seats1.jpg') center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -501,11 +444,23 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
-        .menu-rating .rating-text {
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 500;
-            opacity: 0.9;
+        .menu-pdf {
+            padding: 4rem 0;
+            background: var(--bg-light);
+        }
+        
+        .pdf-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+        }
+        
+        .pdf-container embed {
+            border-radius: 10px;
+            border: none;
         }
 
         .footer {
@@ -588,9 +543,7 @@
                 <h1><a href="index.html" class="about-nav-link"><img src="logo.png" alt="Rendez Vous Lounge" class="nav-logo-img">Rendez Vous Lounge</a></h1>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="menu.html" class="nav-link">Menu</a></li>
                 <li><a href="bakery.html" class="nav-link">Top Loaf Bakery</a></li>
                 <li><a href="gallery.html" class="nav-link">Gallery</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
@@ -608,215 +561,16 @@
     <section class="menu-hero">
         <div class="container">
             <h1>Our Menu</h1>
-            <div class="menu-rating">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <span class="rating-text">4.5 Stars - Google Reviews</span>
-            </div>
             <p>Discover our exquisite selection of cuisine and drinks</p>
-            <div class="cart-panel">
-                <div class="cart-summary">
-                    <span><strong>Cart:</strong> <span id="cart-count">0</span> items</span>
-                    <button id="cart-toggle" class="btn btn-secondary">View Cart</button>
-                </div>
-                <div id="cart-details" class="cart-details hidden">
-                    <h3>Your Cart</h3>
-                    <div id="cart-items"></div>
-                    <div class="cart-total">Total: RWF <span id="cart-total">0</span></div>
-                    <button id="checkout-btn" class="btn btn-primary">Checkout</button>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- Full Menu Section -->
-    <section class="full-menu-section">
+    <!-- Menu PDF Embed -->
+    <section class="menu-pdf">
         <div class="container">
-            <!-- Appetizers -->
-            <div class="menu-category">
-                <h2>Appetizers</h2>
-                <p class="menu-category-description">Start your culinary journey with our carefully crafted appetizers</p>
-                
-                <div class="menu-grid">
-                    <div class="menu-card">
-                        <div class="menu-card-image">
-                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Bruschetta">
-                            <span class="menu-badge">Popular</span>
-                        </div>
-                        <div class="menu-card-content">
-                            <h3 class="menu-card-title">Bruschetta Classica</h3>
-                            <p class="menu-card-description">Toasted artisan bread topped with fresh Roma tomatoes, basil, garlic, and mozzarella cheese</p>
-                            <div class="menu-card-footer">
-                                <span class="menu-card-price">RWF 15,600</span>
-                                <div class="menu-card-allergens">
-                                    <span class="allergen-tag">GF</span>
-                                </div>
-                            </div>
-                            <button class="btn btn-secondary add-to-cart" data-name="Bruschetta Classica" data-price="15600">Add to Cart</button>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-card">
-                        <div class="menu-card-image">
-                            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Carpaccio">
-                        </div>
-                        <div class="menu-card-content">
-                            <h3 class="menu-card-title">Carpaccio di Manzo</h3>
-                            <p class="menu-card-description">Thinly sliced raw beef tenderloin with arugula, shaved parmesan, and truffle oil</p>
-                            <div class="menu-card-footer">
-                                <span class="menu-card-price">RWF 19,500</span>
-                                <div class="menu-card-allergens">
-                                    <span class="allergen-tag">DF</span>
-                                </div>
-                            </div>
-                            <button class="btn btn-secondary add-to-cart" data-name="Carpaccio di Manzo" data-price="19500">Add to Cart</button>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-card">
-                        <div class="menu-card-image">
-                            <img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Calamari">
-                        </div>
-                        <div class="menu-card-content">
-                            <h3 class="menu-card-title">Calamari Fritti</h3>
-                            <p class="menu-card-description">Crispy fried squid rings served with zesty marinara sauce and lemon wedges</p>
-                            <div class="menu-card-footer">
-                                <span class="menu-card-price">RWF 18,200</span>
-                                <div class="menu-card-allergens">
-                                    <span class="allergen-tag">GF</span>
-                                    <span class="allergen-tag">SF</span>
-                                </div>
-                            </div>
-                            <button class="btn btn-secondary add-to-cart" data-name="Calamari Fritti" data-price="18200">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Main Courses -->
-            <div class="menu-category">
-                <h2>Main Courses</h2>
-                <p class="menu-category-description">Our signature dishes prepared with the finest ingredients</p>
-                
-                <div class="menu-grid">
-                    <div class="menu-card">
-                        <div class="menu-card-image">
-                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Osso Buco">
-                            <span class="menu-badge">Chef's Special</span>
-                        </div>
-                        <div class="menu-card-content">
-                            <h3 class="menu-card-title">Osso Buco</h3>
-                            <p class="menu-card-description">Braised veal shanks in white wine and vegetables, served with saffron risotto</p>
-                            <div class="menu-card-footer">
-                                <span class="menu-card-price">RWF 41,600</span>
-                                <div class="menu-card-allergens">
-                                    <span class="allergen-tag">GF</span>
-                                </div>
-                            </div>
-                            <button class="btn btn-secondary add-to-cart" data-name="Osso Buco" data-price="41600">Add to Cart</button>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-card">
-                        <div class="menu-card-image">
-                            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Filetto di Manzo">
-                        </div>
-                        <div class="menu-card-content">
-                            <h3 class="menu-card-title">Filetto di Manzo</h3>
-                            <p class="menu-card-description">Grilled beef tenderloin with truffle sauce, served with seasonal vegetables</p>
-                            <div class="menu-card-footer">
-                                <span class="menu-card-price">RWF 58,500</span>
-                                <div class="menu-card-allergens">
-                                    <span class="allergen-tag">GF</span>
-                                    <span class="allergen-tag">DF</span>
-                                </div>
-                            </div>
-                            <button class="btn btn-secondary add-to-cart" data-name="Filetto di Manzo" data-price="58500">Add to Cart</button>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-card">
-                        <div class="menu-card-image">
-                            <img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Risotto">
-                        </div>
-                        <div class="menu-card-content">
-                            <h3 class="menu-card-title">Risotto ai Frutti di Mare</h3>
-                            <p class="menu-card-description">Creamy arborio rice with mixed seafood, white wine, and fresh herbs</p>
-                            <div class="menu-card-footer">
-                                <span class="menu-card-price">RWF 36,400</span>
-                                <div class="menu-card-allergens">
-                                    <span class="allergen-tag">SF</span>
-                                </div>
-                            </div>
-                            <button class="btn btn-secondary add-to-cart" data-name="Risotto ai Frutti di Mare" data-price="36400">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Desserts -->
-            <div class="menu-category">
-                <h2>Desserts</h2>
-                <p class="menu-category-description">Sweet endings to your perfect meal</p>
-                
-                <div class="menu-grid">
-                    <div class="menu-card">
-                        <div class="menu-card-image">
-                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Tiramisu">
-                        </div>
-                        <div class="menu-card-content">
-                            <h3 class="menu-card-title">Tiramisù</h3>
-                            <p class="menu-card-description">Classic Italian dessert with coffee-soaked ladyfingers and mascarpone cream</p>
-                            <div class="menu-card-footer">
-                                <span class="menu-card-price">RWF 10,400</span>
-                                <div class="menu-card-allergens">
-                                    <span class="allergen-tag">V</span>
-                                </div>
-                            </div>
-                            <button class="btn btn-secondary add-to-cart" data-name="Tiramisù" data-price="10400">Add to Cart</button>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-card">
-                        <div class="menu-card-image">
-                            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Panna Cotta">
-                        </div>
-                        <div class="menu-card-content">
-                            <h3 class="menu-card-title">Panna Cotta</h3>
-                            <p class="menu-card-description">Silky vanilla custard topped with mixed berry compote</p>
-                            <div class="menu-card-footer">
-                                <span class="menu-card-price">RWF 9,100</span>
-                                <div class="menu-card-allergens">
-                                    <span class="allergen-tag">GF</span>
-                                    <span class="allergen-tag">V</span>
-                                </div>
-                            </div>
-                            <button class="btn btn-secondary add-to-cart" data-name="Panna Cotta" data-price="9100">Add to Cart</button>
-                        </div>
-                    </div>
-                    
-                    <div class="menu-card">
-                        <div class="menu-card-image">
-                            <img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Cannoli">
-                        </div>
-                        <div class="menu-card-content">
-                            <h3 class="menu-card-title">Cannoli Siciliani</h3>
-                            <p class="menu-card-description">Traditional Sicilian pastry shells filled with sweet ricotta cream</p>
-                            <div class="menu-card-footer">
-                                <span class="menu-card-price">RWF 11,700</span>
-                                <div class="menu-card-allergens">
-                                    <span class="allergen-tag">V</span>
-                                </div>
-                            </div>
-                            <button class="btn btn-secondary add-to-cart" data-name="Cannoli Siciliani" data-price="11700">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
+            <h2 class="section-title">Our Complete Menu</h2>
+            <div class="pdf-container">
+                <embed src="Rendezvous Food Menu.pdf" type="application/pdf" width="100%" height="800px" />
             </div>
         </div>
     </section>
@@ -931,6 +685,10 @@
         }
 
         function updateCart() {
+            if (!cartCount || !cartTotal || !cartItemsContainer) {
+                return;
+            }
+
             const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
             cartCount.textContent = itemCount;
@@ -948,6 +706,10 @@
         }
 
         function addToCart(name, price) {
+            if (!cartDetails) {
+                return;
+            }
+
             const existingItem = cart.find(item => item.name === name);
             if (existingItem) {
                 existingItem.quantity += 1;
@@ -968,13 +730,17 @@
             });
         });
 
-        cartToggle.addEventListener('click', () => {
-            cartDetails.classList.toggle('hidden');
-        });
+        if (cartToggle && cartDetails) {
+            cartToggle.addEventListener('click', () => {
+                cartDetails.classList.toggle('hidden');
+            });
+        }
 
-        checkoutBtn.addEventListener('click', () => {
-            alert('Your cart is ready. Please contact us to complete your order.');
-        });
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener('click', () => {
+                alert('Your cart is ready. Please contact us to complete your order.');
+            });
+        }
 
         updateCart();
     </script>

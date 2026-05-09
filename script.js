@@ -1,7 +1,7 @@
 const navbar = document.querySelector('.navbar');
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
+const hashLinks = document.querySelectorAll('a[href^="#"]');
 const scrollTop = document.querySelector('.scroll-top');
 const tabBtns = document.querySelectorAll('.tab-btn');
 const menuItems = document.querySelectorAll('.menu-items');
@@ -14,19 +14,20 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeAnimations();
 });
 function initializeEventListeners() {
-    hamburger.addEventListener('click', toggleMobileMenu);
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleMobileMenu);
+    }
     window.addEventListener('scroll', handleNavbarScroll);
     if (scrollTop) {
         scrollTop.addEventListener('click', scrollToTop);
     }
-    navLinks.forEach(link => {
+    hashLinks.forEach(link => {
         link.addEventListener('click', handleSmoothScroll);
     });
     tabBtns.forEach(btn => {
         btn.addEventListener('click', handleTabSwitch);
     });
     window.addEventListener('scroll', handleScrollTop);
-    scrollTop.addEventListener('click', scrollToTop);
     if (reservationForm) {
         reservationForm.addEventListener('submit', handleReservationSubmit);
     }
@@ -59,8 +60,14 @@ function handleNavbarScroll() {
 }
 
 function handleSmoothScroll(e) {
-    e.preventDefault();
     const targetId = e.target.getAttribute('href');
+    const isHashLink = targetId && targetId.startsWith('#');
+
+    if (!isHashLink) {
+        return; // allow normal navigation for external pages
+    }
+
+    e.preventDefault();
     const targetSection = document.querySelector(targetId);
     
     if (targetSection) {
@@ -88,7 +95,11 @@ function handleTabSwitch(e) {
 }
 
 function handleScrollTop() {
-    if (window.scrollY > 500) {
+    if (!scrollTop) {
+        return;
+    }
+
+    if (window.scrollY > 300) {
         scrollTop.classList.add('active');
     } else {
         scrollTop.classList.remove('active');
@@ -100,14 +111,6 @@ function scrollToTop() {
         top: 0,
         behavior: 'smooth'
     });
-}
-
-function handleScrollTop() {
-    if (window.scrollY > 300) {
-        scrollTop.classList.add('active');
-    } else {
-        scrollTop.classList.remove('active');
-    }
 }
 
 function handleReservationSubmit(e) {

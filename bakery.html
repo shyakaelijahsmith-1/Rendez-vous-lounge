@@ -11,34 +11,95 @@
     <style>
         .bakery-hero {
             height: 60vh;
-            min-height: 400px;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover;
+            min-height: 420px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.65)),
+                        url('topcafe.jfif') center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bakery-hero .hero-content {
+            max-width: 760px;
+            padding: 0 20px;
+            z-index: 1;
         }
         
         .bakery-hero h1 {
             font-size: 4rem;
             margin-bottom: 1rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.7);
         }
         
         .bakery-hero p {
-            font-size: 1.3rem;
-            opacity: 0.9;
+            font-size: 1.25rem;
+            opacity: 0.95;
+            margin: 0 auto;
+            max-width: 700px;
+            line-height: 1.8;
         }
         
-        .hero-buttons {
+        .bakery-hero .hero-buttons {
             display: flex;
             gap: 1rem;
             justify-content: center;
-            margin-top: 2rem;
+            margin: 1.8rem auto 0;
+            flex-wrap: wrap;
+            max-width: 720px;
         }
-        
+
+        .bakery-hero .hero-buttons .btn {
+            min-width: 200px;
+            padding: 1rem 1.8rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+        }
+
+        .bakery-hero .hero-buttons .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 22px 45px rgba(0,0,0,0.28);
+        }
+
+        .bakery-hero .btn-primary {
+            background: linear-gradient(135deg, #ff4d4d 0%, #c9302c 100%);
+            color: #fff;
+        }
+
+        .bakery-hero .btn-secondary {
+            background: rgba(255,255,255,0.18);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.55);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+        }
+
+        .bakery-hero .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+            color: #141414;
+            border-color: rgba(255,255,255,0.8);
+        }
+
+        .bakery-hero .delivery-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255,255,255,0.16);
+            color: white;
+            padding: 0.9rem 1.4rem;
+            border-radius: 999px;
+            margin-top: 2rem;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+
         .bakery-intro {
             padding: 80px 0;
             background: white;
@@ -198,16 +259,6 @@
             font-weight: 700;
             font-family: 'Playfair Display', serif;
             margin-bottom: 1rem;
-        }
-        
-        .product-order {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
         }
         
         .bakery-process {
@@ -655,7 +706,6 @@
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="menu.html" class="nav-link">Menu</a></li>
-                <li><a href="bakery.html" class="nav-link">Bakery</a></li>
                 <li><a href="gallery.html" class="nav-link">Gallery</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
                 <li><a href="index.html#reservation" class="nav-link reservation-btn">Reserve Table</a></li>
@@ -670,25 +720,13 @@
 
     <!-- Bakery Hero -->
     <section class="bakery-hero">
-        <div class="container">
+        <div class="hero-content">
             <h1>Top Loaf Bakery</h1>
-            <div class="bakery-rating">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-            </div>
             <p>Fresh baked goods made with love and premium ingredients</p>
             <div class="hero-buttons">
                 <a href="index.html" class="btn btn-primary">Back to Main Restaurant</a>
-                <a href="#bakery-contact" class="btn btn-secondary">Order Now</a>
-            </div>
-            <div class="delivery-badge">
-                <i class="fas fa-truck"></i>
-                <span>Delivery Available</span>
+                <a href="tel:+250788310765" class="btn btn-primary">Call Now</a>
+                <a href="https://wa.me/250788310765?text=Hello%20Rendez%20Vous%20Lounge,%20I%20would%20like%20to%20order%20or%20get%20more%20info" class="btn btn-secondary" target="_blank" rel="noopener">WhatsApp</a>
             </div>
         </div>
     </section>
@@ -758,12 +796,7 @@
                     <div class="product-content">
                         <h3 class="product-title">Artisan Bread Collection</h3>
                         <p class="product-description">Sourdough, whole wheat, rye, and specialty breads baked in traditional stone ovens</p>
-                        <div class="product-price">From RWF 3,500</div>
-                        <div class="product-order">
-                            <a href="#" class="btn btn-primary btn-small">Order Now</a>
-                            <a href="#" class="btn btn-secondary btn-small">View Details</a>
-                        </div>
-                    </div>
+                        <div class="product-price">From RWF 3,500</div>                    </div>
                 </div>
                 
                 <div class="product-card">
@@ -774,12 +807,7 @@
                     <div class="product-content">
                         <h3 class="product-title">Fresh Pastries</h3>
                         <p class="product-description">Croissants, Danish pastries, muffins, and our signature cinnamon rolls</p>
-                        <div class="product-price">From RWF 2,000</div>
-                        <div class="product-order">
-                            <a href="#" class="btn btn-primary btn-small">Order Now</a>
-                            <a href="#" class="btn btn-secondary btn-small">View Details</a>
-                        </div>
-                    </div>
+                        <div class="product-price">From RWF 2,000</div>                    </div>
                 </div>
                 
                 <div class="product-card">
@@ -790,12 +818,7 @@
                     <div class="product-content">
                         <h3 class="product-title">Celebration Cakes</h3>
                         <p class="product-description">Custom cakes for birthdays, weddings, and special occasions</p>
-                        <div class="product-price">From RWF 25,000</div>
-                        <div class="product-order">
-                            <a href="#" class="btn btn-primary btn-small">Order Now</a>
-                            <a href="#" class="btn btn-secondary btn-small">View Details</a>
-                        </div>
-                    </div>
+                        <div class="product-price">From RWF 25,000</div>                    </div>
                 </div>
                 
                 <div class="product-card">
@@ -805,12 +828,7 @@
                     <div class="product-content">
                         <h3 class="product-title">Cookies & Biscuits</h3>
                         <p class="product-description">Chocolate chip, oatmeal raisin, butter cookies, and traditional Rwandan biscuits</p>
-                        <div class="product-price">From RWF 1,500</div>
-                        <div class="product-order">
-                            <a href="#" class="btn btn-primary btn-small">Order Now</a>
-                            <a href="#" class="btn btn-secondary btn-small">View Details</a>
-                        </div>
-                    </div>
+                        <div class="product-price">From RWF 1,500</div>                    </div>
                 </div>
                 
                 <div class="product-card">
@@ -821,12 +839,7 @@
                     <div class="product-content">
                         <h3 class="product-title">Fresh Sandwiches</h3>
                         <p class="product-description">Made-to-order sandwiches with our fresh bread and premium fillings</p>
-                        <div class="product-price">From RWF 5,000</div>
-                        <div class="product-order">
-                            <a href="#" class="btn btn-primary btn-small">Order Now</a>
-                            <a href="#" class="btn btn-secondary btn-small">View Details</a>
-                        </div>
-                    </div>
+                        <div class="product-price">From RWF 5,000</div>                    </div>
                 </div>
                 
                 <div class="product-card">
@@ -836,12 +849,7 @@
                     <div class="product-content">
                         <h3 class="product-title">Coffee & Beverages</h3>
                         <p class="product-description">Freshly brewed coffee, tea, and fresh juices to complement our baked goods</p>
-                        <div class="product-price">From RWF 2,000</div>
-                        <div class="product-order">
-                            <a href="#" class="btn btn-primary btn-small">Order Now</a>
-                            <a href="#" class="btn btn-secondary btn-small">View Details</a>
-                        </div>
-                    </div>
+                        <div class="product-price">From RWF 2,000</div>                    </div>
                 </div>
             </div>
         </div>
@@ -1035,3 +1043,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
