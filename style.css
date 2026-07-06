@@ -92,6 +92,89 @@ h4 { font-size: 1.6rem; }
     box-shadow: var(--shadow-medium);
 }
 
+.appearance-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-left: 0.75rem;
+    padding: 0.6rem 0.95rem;
+    border: 1px solid rgba(201, 48, 44, 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-light);
+}
+
+.appearance-toggle:hover {
+    transform: translateY(-2px);
+    border-color: rgba(201, 48, 44, 0.35);
+    box-shadow: var(--shadow-medium);
+}
+
+.appearance-toggle:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(201, 48, 44, 0.2);
+}
+
+.appearance-toggle .toggle-icon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.footer-appearance {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.footer-appearance .appearance-toggle {
+    margin-left: 0;
+}
+
+body[data-theme="dark"] {
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+body[data-theme="dark"] .navbar {
+    background: rgba(15, 23, 42, 0.95);
+    color: #f8fafc;
+}
+
+body[data-theme="dark"] .nav-link,
+body[data-theme="dark"] .nav-logo h1 a,
+body[data-theme="dark"] .about-nav-link,
+body[data-theme="dark"] .bakery-nav-link {
+    color: #f8fafc;
+}
+
+body[data-theme="dark"] .nav-link:hover {
+    color: #ffb37a;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+body[data-theme="dark"] .appearance-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f8fafc;
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .appearance-toggle .toggle-label {
+        display: none;
+    }
+
+    .appearance-toggle {
+        margin-left: 0.25rem;
+        padding: 0.55rem;
+    }
+}
+
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -730,12 +813,14 @@ h4 { font-size: 1.6rem; }
 
 .reservation-info h3 {
     color: var(--secondary-color);
+    opacity: 1.95;
     margin-bottom: 1rem;
     font-size: 2rem;
 }
 
 .reservation-info p {
     color: #666;
+    opacity: 1.95;
     margin-bottom: 2rem;
     line-height: 1.8;
 }

@@ -11,6 +11,7 @@ const newsletterForm = document.querySelector('.newsletter-form');
 document.addEventListener('DOMContentLoaded', function() {
     initializeEventListeners();
     initializeAnimations();
+    initializeAppearanceToggle();
 
     const hasSeenIntro = sessionStorage.getItem('rendezvous-intro-seen');
     if (hasSeenIntro === 'true') {
@@ -20,6 +21,45 @@ document.addEventListener('DOMContentLoaded', function() {
         hideLoadingScreen(false);
     }
 });
+function initializeAppearanceToggle() {
+    const toggle = document.getElementById('appearance-toggle');
+    if (!toggle) {
+        return;
+    }
+
+    const savedTheme = sessionStorage.getItem('rendezvous-theme');
+    applyTheme(savedTheme || 'light');
+
+    toggle.addEventListener('click', function() {
+        const nextTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(nextTheme);
+    });
+}
+
+function applyTheme(theme) {
+    document.body.dataset.theme = theme;
+    const toggle = document.getElementById('appearance-toggle');
+
+    if (!toggle) {
+        return;
+    }
+
+    const icon = toggle.querySelector('.toggle-icon');
+    const label = toggle.querySelector('.toggle-label');
+
+    if (theme === 'dark') {
+        toggle.setAttribute('aria-pressed', 'true');
+        if (icon) icon.textContent = '🌙';
+        if (label) label.textContent = 'Dark';
+    } else {
+        toggle.setAttribute('aria-pressed', 'false');
+        if (icon) icon.textContent = '☀️';
+        if (label) label.textContent = 'Light';
+    }
+
+    sessionStorage.setItem('rendezvous-theme', theme);
+}
+
 function initializeEventListeners() {
     if (hamburger) {
         hamburger.addEventListener('click', toggleMobileMenu);
