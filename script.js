@@ -10,8 +10,15 @@ const newsletterForm = document.querySelector('.newsletter-form');
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeEventListeners();
-    hideLoadingScreen();
     initializeAnimations();
+
+    const hasSeenIntro = sessionStorage.getItem('rendezvous-intro-seen');
+    if (hasSeenIntro === 'true') {
+        hideLoadingScreen(true);
+    } else {
+        sessionStorage.setItem('rendezvous-intro-seen', 'true');
+        hideLoadingScreen(false);
+    }
 });
 function initializeEventListeners() {
     if (hamburger) {
@@ -386,16 +393,24 @@ function initializeAnimations() {
     document.head.appendChild(style);
 }
 
-function hideLoadingScreen() {
+function hideLoadingScreen(isRepeatVisit = false) {
     const loading = document.querySelector('.loading');
-    if (loading) {
-        setTimeout(() => {
-            loading.style.opacity = '0';
-            setTimeout(() => {
-                loading.remove();
-            }, 500);
-        }, 1000);
+    if (!loading) {
+        return;
     }
+
+    if (isRepeatVisit) {
+        loading.remove();
+        return;
+    }
+
+    setTimeout(() => {
+        loading.style.opacity = '0';
+        loading.style.visibility = 'hidden';
+        setTimeout(() => {
+            loading.remove();
+        }, 600);
+    }, 2000);
 }
 
 function debounce(func, wait) {
